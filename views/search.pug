@@ -1,4 +1,9 @@
 extends layouts/main.pug
+include mixins/videoBlock
 
 block content
-    p search
+    .search_header
+        h3 Searching by #{searchingBy}
+    .search_videos
+        each item in demos
+            +videoBlock(item)
