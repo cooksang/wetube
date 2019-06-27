@@ -1,23 +1,15 @@
-export const demos = [{
-    id: 324393,
-    title: 'Video awesome',
-    description: 'This is something i love',
-    views: 24,
-    videoFile: 'https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm',
-    creator: {
-        id: 121212,
-        name: 'nicolas',
-        email: 'nico@las.com'
-    }
-},{
-    id: 122211,
-    title: 'Video super',
-    description: 'This is something i love',
-    views: 24,
-    videoFile: 'https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm',
-    creator: {
-        id: 1212122,
-        name: 'nicolas',
-        email: 'nico@las.com'
-    }
-}]
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URL, {
+    userNewUrlParse: true,
+    useFindAndModify: false
+});
+
+const db = mongoose.connection;
+
+const handleOpen = () => console.log("Connected to DB");
+const handleError = () => console.log(`X Error on DB Connection:`);
+db.once("open", handleOpen);
+db.on("error", handleError);
